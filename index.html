@@ -151,7 +151,7 @@
 
         <div class="mt-10 max-w-xl">
           <p class="text-base leading-7 text-white/60 md:text-lg">
-            Brand strategy, design and development for businesses ready to look better, communicate clearer and grow online.
+            Brand, web, video and social — built and run for businesses ready to look better, communicate clearer and grow online.
           </p>
 
           <div class="mt-8 flex flex-wrap gap-3">
@@ -220,7 +220,7 @@
         WE DESIGN, BUILD AND SHAPE DIGITAL EXPERIENCES.
       </h2>
       <p class="reveal self-end max-w-md text-base leading-7 text-white/55">
-        We bring strategy, design and technology together to create brands and digital experiences people remember.
+        We bring brand, web, video and social together under one roof, so every touchpoint feels like the same business.
       </p>
     </div>
 
@@ -247,11 +247,8 @@
 <div id="workModal" class="fixed inset-0 z-[100] hidden overflow-y-auto bg-[#050807]/95 p-5 backdrop-blur-xl md:p-10">
   <div class="mx-auto max-w-[1200px]">
     <button id="closeModalBtn" class="mb-10 rounded-full border border-white/15 px-5 py-3 text-sm">← BACK TO WORK</button>
-    <!-- PLACEHOLDER: replace with a real project cover <img> (recommended ~1600x900) -->
-    <div class="ph-media mb-10 flex aspect-[16/9] w-full flex-col items-center justify-center gap-3 rounded-[1.5rem] border border-dashed border-white/15 bg-[#0E1711] text-white/35">
-      <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-      <span id="modalMediaLabel" class="text-[10px] uppercase tracking-[0.2em]">Add project cover image</span>
-    </div>
+    <!-- PLACEHOLDER: replace with a real project cover <img> or <video> (recommended ~1600x900) -->
+    <div id="modalMedia" class="relative mb-10 aspect-[16/9] w-full overflow-hidden rounded-[1.5rem]"></div>
     <div class="grid gap-10 md:grid-cols-[1fr_.35fr]">
       <div>
         <div id="modalCategory" class="mb-5 text-xs uppercase tracking-[0.2em] text-[#67E58A]"></div>
@@ -319,9 +316,9 @@
         A DIGITAL LAB FOR AMBITIOUS IDEAS.
       </h2>
       <p class="reveal mt-10 max-w-2xl text-lg leading-8 text-white/55">
-        Trinary Digital Lab is a creative studio working at the intersection of brand, design and technology.
+        Trinary Digital Lab is a full-service digital agency working across brand, web, video and social.
         <br /><br />
-        We help businesses turn ideas into identities, websites and digital experiences that feel clear, modern and unmistakably theirs.
+        We help businesses turn ideas into identities, websites, content and campaigns that feel clear, modern and unmistakably theirs — and keep running the digital side so they don't have to.
       </p>
       <div class="reveal mt-12 flex gap-10 text-xs uppercase tracking-[0.15em] text-white/40">
         <span>BASED IN NIGERIA</span>
@@ -354,8 +351,12 @@
         <div id="testimonialQuote" class="max-w-4xl text-[clamp(2rem,4vw,4rem)] font-medium leading-[1.05] tracking-[-0.05em]"></div>
         <div class="mt-10 flex items-center gap-4">
           <!-- PLACEHOLDER: optional client headshot, replace with <img class="h-12 w-12 rounded-full object-cover"> -->
-          <div class="ph-media flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-dashed border-white/15 bg-[#0E1711] text-white/30">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg>
+          <div class="ph-media h-12 w-12 shrink-0 overflow-hidden rounded-full bg-[#14201A]">
+            <svg viewBox="0 0 100 100" class="h-full w-full">
+              <rect width="100" height="100" fill="#14201A"/>
+              <circle cx="50" cy="40" r="18" fill="#22321F"/>
+              <circle cx="50" cy="98" r="32" fill="#1B281F"/>
+            </svg>
           </div>
           <div>
             <div id="testimonialClient" class="font-semibold"></div>
@@ -477,7 +478,7 @@
     <div class="grid gap-12 md:grid-cols-4">
       <div class="md:col-span-2">
         <div class="text-3xl font-bold tracking-[-0.06em]">TRINARY</div>
-        <p class="mt-4 text-sm text-white/40">Brand. Design. Digital.</p>
+        <p class="mt-4 text-sm text-white/40">Brand. Web. Video. Social.</p>
       </div>
       <div>
         <div class="mb-5 text-xs uppercase tracking-[0.2em] text-white/30">NAVIGATION</div>
@@ -509,20 +510,50 @@
 (function(){
   // ---------- Data ----------
   const projects = [
-    { title:"LANDZERO", category:"REAL ESTATE / DIGITAL EXPERIENCE", description:"A premium digital experience for a modern real estate brand.", year:"2026", services:["Web Design","Development","Creative Design"] },
-    { title:"ZEROPAY", category:"FINTECH / PRODUCT DESIGN", description:"A simple digital product experience designed around accessible property ownership.", year:"2026", services:["UI/UX Design","Product Design","Creative Design"] },
-    { title:"EDGELINE", category:"REAL ESTATE / WEB DESIGN", description:"A modern property website focused on discovery and conversion.", year:"2026", services:["Web Design","Development"] },
-    { title:"BETALOGISTICS", category:"LOGISTICS / DIGITAL PLATFORM", description:"A digital experience designed to make logistics services easier to discover and use.", year:"2026", services:["Web Design","UI/UX","Development"] },
-    { title:"TRINARY DIGITAL LAB", category:"BRAND / DIGITAL", description:"The evolving digital identity and creative work of Trinary Digital Lab.", year:"2026", services:["Brand Identity","Creative Design","Web Design"] },
+    { title:"LANDZERO", category:"REAL ESTATE / DIGITAL EXPERIENCE", description:"A premium digital experience for a modern real estate brand.", year:"2026", services:["Web Design","Development","Creative Design"], media:"image" },
+    { title:"ZEROPAY", category:"FINTECH / PRODUCT DESIGN", description:"A simple digital product experience designed around accessible property ownership.", year:"2026", services:["UI/UX Design","Product Design","Creative Design"], media:"image" },
+    { title:"EDGELINE", category:"REAL ESTATE / WEB DESIGN", description:"A modern property website focused on discovery and conversion.", year:"2026", services:["Web Design","Development"], media:"video" },
+    { title:"BETALOGISTICS", category:"LOGISTICS / DIGITAL PLATFORM", description:"A digital experience designed to make logistics services easier to discover and use.", year:"2026", services:["Web Design","UI/UX","Development"], media:"image" },
+    { title:"TRINARY DIGITAL LAB", category:"BRAND / DIGITAL", description:"The evolving digital identity and creative work of Trinary Digital Lab.", year:"2026", services:["Brand Identity","Creative Design","Web Design"], media:"video" },
   ];
 
+  // Placeholder media tiles — styled to read as an actual photo/video thumbnail
+  // rather than an upload icon. Swap the returned markup for a real <img> or
+  // <video> tag per the instructions in README.md.
+  function phImage(){
+    return `
+      <div class="ph-media absolute inset-0 bg-[#14201A]">
+        <svg class="absolute inset-0 h-full w-full" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+          <rect width="400" height="300" fill="#14201A"/>
+          <circle cx="330" cy="55" r="22" fill="#22321F"/>
+          <path d="M0 230 L110 130 L190 200 L260 120 L400 240 L400 300 L0 300 Z" fill="#1B281F"/>
+          <path d="M0 260 L150 175 L230 230 L320 165 L400 260 L400 300 L0 300 Z" fill="#0E1711"/>
+        </svg>
+      </div>`;
+  }
+  function phVideo(){
+    return `
+      <div class="ph-media absolute inset-0 bg-[#14201A]">
+        <svg class="absolute inset-0 h-full w-full" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+          <rect width="400" height="300" fill="#14201A"/>
+          <circle cx="330" cy="55" r="22" fill="#22321F"/>
+          <path d="M0 240 L120 150 L200 210 L270 140 L400 250 L400 300 L0 300 Z" fill="#1B281F"/>
+        </svg>
+        <div class="absolute inset-0 flex items-center justify-center">
+          <div class="flex h-16 w-16 items-center justify-center rounded-full bg-white/10 backdrop-blur-sm border border-white/25">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+        </div>
+      </div>`;
+  }
+
   const services = [
-    { number:"01", title:"BRAND IDENTITY", description:"Visual identities built to make businesses recognizable, memorable and consistent." },
-    { number:"02", title:"WEB DESIGN", description:"High-end websites designed around your audience, your brand and your business goals." },
-    { number:"03", title:"WEB DEVELOPMENT", description:"Fast, responsive websites engineered to perform across devices and browsers." },
-    { number:"04", title:"UI/UX DESIGN", description:"Clear and intuitive interfaces designed to make digital products easier to understand and use." },
-    { number:"05", title:"CREATIVE DESIGN", description:"Campaigns, social content and marketing visuals designed to make your message stand out." },
-    { number:"06", title:"DIGITAL STRATEGY", description:"Practical digital direction that helps turn ideas into experiences with a clear purpose." },
+    { number:"01", title:"BRAND DESIGN", description:"Identity systems — logos, color, type and voice — built to make businesses recognizable and consistent everywhere they show up." },
+    { number:"02", title:"WEB DESIGN & DEVELOPMENT", description:"Websites designed around your audience and built to load fast, work on any device and actually convert." },
+    { number:"03", title:"VIDEOGRAPHY", description:"Brand films, product videos and social-ready content shot and edited to hold attention." },
+    { number:"04", title:"GRAPHIC DESIGN", description:"Print and digital visuals — from packaging to pitch decks — designed to carry your brand consistently." },
+    { number:"05", title:"SOCIAL MEDIA MANAGEMENT", description:"Content planning, posting and community management that keeps your brand active and on-message." },
+    { number:"06", title:"DIGITAL STRATEGY", description:"Practical direction that ties brand, content and channels together around a clear business goal." },
   ];
 
   const steps = [
@@ -546,14 +577,14 @@
   ];
 
   const packages = [
-    { title:"STARTER", description:"For businesses that need a strong digital foundation.", features:["Strategy session","Brand direction","Landing page","Responsive design","Basic development"] },
-    { title:"GROWTH", description:"For businesses ready for a complete digital presence.", features:["Strategy","Visual direction","Multi-page website","UI/UX","Responsive development","SEO structure","Deployment"], featured:true },
-    { title:"CUSTOM", description:"For more complex digital projects.", features:["Custom strategy","Brand system","Custom website","Product/UI design","Advanced interactions","Integrations","Ongoing support"] },
+    { title:"STARTER", description:"For businesses that need a strong digital foundation.", features:["Strategy session","Brand direction","Landing page","Responsive design","Basic social setup"] },
+    { title:"GROWTH", description:"For businesses ready for a complete digital presence.", features:["Strategy","Brand system","Multi-page website","Monthly content shoot","Social media management","Graphic design support","Deployment"], featured:true },
+    { title:"CUSTOM", description:"For more complex, multi-service projects.", features:["Custom strategy","Full brand system","Custom website & product design","Videography & content production","Ongoing social management","Integrations","Ongoing support"] },
   ];
 
   const faq = [
     { q:"WHAT KIND OF BUSINESSES DO YOU WORK WITH?", a:"Startups, growing businesses and established brands looking to improve how they present themselves digitally." },
-    { q:"DO YOU ONLY DESIGN WEBSITES?", a:"No. We work across brand identity, web design, development, UI/UX and creative digital design." },
+    { q:"DO YOU ONLY DESIGN WEBSITES?", a:"No. We're a full-service digital agency — brand design, web design and development, videography, graphic design and social media management, all under one roof." },
     { q:"CAN YOU DEVELOP THE WEBSITE AFTER DESIGNING IT?", a:"Yes. Design and development can be handled together as one project." },
     { q:"CAN YOU WORK WITH OUR EXISTING BRAND?", a:"Yes. We can work within an existing identity or help evolve it." },
     { q:"HOW LONG DOES A PROJECT TAKE?", a:"Timelines depend on the scope and complexity of each project. A clear timeline is established before work begins." },
@@ -590,11 +621,8 @@
     el.setAttribute('data-cursor','');
     el.innerHTML = `
       <div class="relative overflow-hidden ${wide ? 'aspect-[16/9]' : 'aspect-[4/5]'}">
-        <!-- PLACEHOLDER: replace this ph-media block with a real <img> or <video> for ${p.title} -->
-        <div class="ph-media absolute inset-0 flex flex-col items-center justify-center gap-3 border-b border-dashed border-white/15 bg-[#0E1711] text-white/35 transition-transform duration-700 group-hover:scale-105">
-          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-          <span class="text-[10px] uppercase tracking-[0.2em]">Add image — ${p.title}</span>
-        </div>
+        <!-- PLACEHOLDER: replace this block with a real <img> or <video> for ${p.title} -->
+        ${p.media === 'video' ? phVideo() : phImage()}
         <div class="absolute inset-0 bg-gradient-to-t from-[#050807] via-transparent to-transparent"></div>
         <div class="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100 bg-[#35B85A]/10"></div>
         <div class="absolute bottom-0 left-0 right-0 p-6 md:p-8">
@@ -615,7 +643,7 @@
 
   function openModal(p){
     document.getElementById('modalCategory').textContent = p.category;
-    document.getElementById('modalMediaLabel').textContent = `Add project cover image — ${p.title}`;
+    document.getElementById('modalMedia').innerHTML = p.media === 'video' ? phVideo() : phImage();
     document.getElementById('modalTitle').textContent = p.title;
     document.getElementById('modalDesc').textContent = p.description;
     document.getElementById('modalYear').textContent = p.year;
