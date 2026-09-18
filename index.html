@@ -247,6 +247,11 @@
 <div id="workModal" class="fixed inset-0 z-[100] hidden overflow-y-auto bg-[#050807]/95 p-5 backdrop-blur-xl md:p-10">
   <div class="mx-auto max-w-[1200px]">
     <button id="closeModalBtn" class="mb-10 rounded-full border border-white/15 px-5 py-3 text-sm">← BACK TO WORK</button>
+    <!-- PLACEHOLDER: replace with a real project cover <img> (recommended ~1600x900) -->
+    <div class="ph-media mb-10 flex aspect-[16/9] w-full flex-col items-center justify-center gap-3 rounded-[1.5rem] border border-dashed border-white/15 bg-[#0E1711] text-white/35">
+      <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+      <span id="modalMediaLabel" class="text-[10px] uppercase tracking-[0.2em]">Add project cover image</span>
+    </div>
     <div class="grid gap-10 md:grid-cols-[1fr_.35fr]">
       <div>
         <div id="modalCategory" class="mb-5 text-xs uppercase tracking-[0.2em] text-[#67E58A]"></div>
@@ -347,9 +352,15 @@
     <div class="mt-24 grid gap-10 lg:grid-cols-[1fr_.3fr]">
       <div id="testimonialContent">
         <div id="testimonialQuote" class="max-w-4xl text-[clamp(2rem,4vw,4rem)] font-medium leading-[1.05] tracking-[-0.05em]"></div>
-        <div class="mt-10">
-          <div id="testimonialClient" class="font-semibold"></div>
-          <div id="testimonialRole" class="mt-1 text-sm text-white/40"></div>
+        <div class="mt-10 flex items-center gap-4">
+          <!-- PLACEHOLDER: optional client headshot, replace with <img class="h-12 w-12 rounded-full object-cover"> -->
+          <div class="ph-media flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-dashed border-white/15 bg-[#0E1711] text-white/30">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg>
+          </div>
+          <div>
+            <div id="testimonialClient" class="font-semibold"></div>
+            <div id="testimonialRole" class="mt-1 text-sm text-white/40"></div>
+          </div>
         </div>
       </div>
       <div class="flex items-end gap-3 lg:justify-end">
@@ -567,11 +578,10 @@
   });
 
   // ---------- Render: Work ----------
+  // PLACEHOLDER IMAGES: each project card below is a stand-in thumbnail.
+  // To swap in a real project image, replace the placeholder <div class="ph-media">...</div>
+  // block for that project with: <img src="/assets/projects/SLUG.jpg" alt="PROJECT TITLE" class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
   const workGrid = document.getElementById('workGrid');
-  const gradients = [
-    'from-[#185327] to-[#35B85A]', 'from-[#0E1711] to-[#185327]', 'from-[#35B85A] to-[#67E58A]',
-    'from-[#0A100C] to-[#185327]', 'from-[#185327] to-[#0A100C]'
-  ];
   projects.forEach((p, i) => {
     const wide = (i === 0 || i === 3);
     const el = document.createElement('article');
@@ -580,7 +590,11 @@
     el.setAttribute('data-cursor','');
     el.innerHTML = `
       <div class="relative overflow-hidden ${wide ? 'aspect-[16/9]' : 'aspect-[4/5]'}">
-        <div class="absolute inset-0 bg-gradient-to-br ${gradients[i % gradients.length]} opacity-70 transition-transform duration-700 group-hover:scale-105"></div>
+        <!-- PLACEHOLDER: replace this ph-media block with a real <img> or <video> for ${p.title} -->
+        <div class="ph-media absolute inset-0 flex flex-col items-center justify-center gap-3 border-b border-dashed border-white/15 bg-[#0E1711] text-white/35 transition-transform duration-700 group-hover:scale-105">
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span class="text-[10px] uppercase tracking-[0.2em]">Add image — ${p.title}</span>
+        </div>
         <div class="absolute inset-0 bg-gradient-to-t from-[#050807] via-transparent to-transparent"></div>
         <div class="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100 bg-[#35B85A]/10"></div>
         <div class="absolute bottom-0 left-0 right-0 p-6 md:p-8">
@@ -601,6 +615,7 @@
 
   function openModal(p){
     document.getElementById('modalCategory').textContent = p.category;
+    document.getElementById('modalMediaLabel').textContent = `Add project cover image — ${p.title}`;
     document.getElementById('modalTitle').textContent = p.title;
     document.getElementById('modalDesc').textContent = p.description;
     document.getElementById('modalYear').textContent = p.year;
