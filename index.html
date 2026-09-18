@@ -1,0 +1,791 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Trinary Digital Lab — Brand, Design &amp; Digital Experiences</title>
+<meta name="description" content="Trinary Digital Lab creates brands, websites and digital experiences for ambitious businesses." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --bg:#050807;
+    --surface:#0A100C;
+    --surface-2:#0E1711;
+    --green:#185327;
+    --green-bright:#35B85A;
+    --green-accent:#67E58A;
+    --white:#F5F7F5;
+    --muted:#9BA69E;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--white);
+    font-family:'Manrope', sans-serif;
+    overflow-x:hidden;
+  }
+  body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:40;
+    opacity:.025;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+  }
+  ::selection{background:var(--green-accent); color:var(--bg);}
+  a{color:inherit; text-decoration:none;}
+  button, input, textarea, select{font:inherit;}
+  button, a{-webkit-tap-highlight-color:transparent;}
+  :focus-visible{outline:2px solid var(--green-accent); outline-offset:4px;}
+
+  /* scroll reveal */
+  .reveal{opacity:0; transform:translateY(40px); transition:opacity .8s cubic-bezier(.22,1,.36,1), transform .8s cubic-bezier(.22,1,.36,1);}
+  .reveal.in{opacity:1; transform:translateY(0);}
+  .reveal-l{opacity:0; transform:translateY(-40px); transition:opacity .9s cubic-bezier(.22,1,.36,1), transform .9s cubic-bezier(.22,1,.36,1);}
+  .reveal-l.in{opacity:1; transform:translateY(0);}
+
+  .float{animation:float 7s ease-in-out infinite;}
+  @keyframes float{
+    0%,100%{transform:translateY(0) rotate(0deg);}
+    50%{transform:translateY(-18px) rotate(2deg);}
+  }
+
+  .cursor-dot{
+    position:fixed; top:0; left:0; z-index:9999;
+    width:10px; height:10px; border-radius:9999px;
+    background:var(--green-accent);
+    pointer-events:none;
+    transform:translate(-50%,-50%);
+    mix-blend-mode:difference;
+    transition:width .2s, height .2s, background .2s;
+    display:flex; align-items:center; justify-content:center;
+    font-size:10px; font-weight:600; color:var(--bg);
+  }
+
+  .grid-bg{
+    background-image:linear-gradient(rgba(103,229,138,.3) 1px, transparent 1px), linear-gradient(90deg, rgba(103,229,138,.3) 1px, transparent 1px);
+    background-size:70px 70px;
+  }
+
+  .magnetic{transition:transform .25s cubic-bezier(.22,1,.36,1);}
+
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation-duration:.01ms !important; animation-iteration-count:1 !important; scroll-behavior:auto !important; transition-duration:.01ms !important;}
+  }
+
+  /* mobile menu */
+  #mobileMenu{transform:translateY(-100%); transition:transform .5s cubic-bezier(.22,1,.36,1);}
+  #mobileMenu.open{transform:translateY(0);}
+
+  /* accordion */
+  .faq-panel{max-height:0; overflow:hidden; transition:max-height .35s ease;}
+</style>
+</head>
+<body>
+
+<!-- Custom cursor (desktop only) -->
+<div id="cursorDot" class="cursor-dot hidden md:flex"></div>
+
+<!-- Navbar -->
+<header id="navbar" class="fixed left-0 right-0 top-0 z-50 border-b border-transparent backdrop-blur-md transition-colors duration-300" style="background:rgba(5,8,7,0)">
+  <div class="mx-auto flex h-20 max-w-[1500px] items-center justify-between px-5 md:px-8">
+    <a href="#top" class="text-lg font-bold tracking-[-0.04em]">TRINARY</a>
+    <nav class="hidden items-center gap-8 md:flex">
+      <a href="#work" class="text-sm text-white/65 transition-colors hover:text-white">Work</a>
+      <a href="#services" class="text-sm text-white/65 transition-colors hover:text-white">Services</a>
+      <a href="#process" class="text-sm text-white/65 transition-colors hover:text-white">Process</a>
+      <a href="#about" class="text-sm text-white/65 transition-colors hover:text-white">About</a>
+      <a href="#faq" class="text-sm text-white/65 transition-colors hover:text-white">FAQ</a>
+    </nav>
+    <a href="#contact" class="hidden rounded-full bg-white px-5 py-3 text-sm font-semibold text-[#050807] transition-transform hover:scale-105 md:block" data-cursor>LET'S TALK</a>
+    <button id="menuBtn" aria-label="Open menu" class="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 md:hidden">
+      <span class="space-y-1.5">
+        <span class="block h-px w-5 bg-white"></span>
+        <span class="block h-px w-5 bg-white"></span>
+      </span>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile menu -->
+<div id="mobileMenu" class="fixed inset-0 z-[60] bg-[#050807]">
+  <div class="flex h-full flex-col justify-between p-6">
+    <div class="flex justify-between">
+      <span class="text-lg font-bold">TRINARY</span>
+      <button id="closeMenuBtn" class="h-11 w-11 rounded-full border border-white/15" aria-label="Close menu">×</button>
+    </div>
+    <nav class="flex flex-col gap-5">
+      <a href="#work" class="mobile-link text-5xl font-semibold tracking-[-0.06em]">Work</a>
+      <a href="#services" class="mobile-link text-5xl font-semibold tracking-[-0.06em]">Services</a>
+      <a href="#process" class="mobile-link text-5xl font-semibold tracking-[-0.06em]">Process</a>
+      <a href="#about" class="mobile-link text-5xl font-semibold tracking-[-0.06em]">About</a>
+      <a href="#faq" class="mobile-link text-5xl font-semibold tracking-[-0.06em]">FAQ</a>
+    </nav>
+    <a href="#contact" class="mobile-link rounded-full bg-gradient-to-r from-[#185327] to-[#35B85A] px-6 py-5 text-center font-semibold">START A PROJECT</a>
+  </div>
+</div>
+
+<!-- Hero -->
+<section id="top" class="relative flex min-h-screen overflow-hidden px-5 pb-12 pt-32 md:px-8 md:pt-40">
+  <div class="absolute inset-0">
+    <div class="absolute left-1/2 top-1/3 h-[600px] w-[600px] -translate-x-1/2 rounded-full bg-[#35B85A]/10 blur-[140px]"></div>
+    <div class="absolute inset-0 opacity-[0.06] grid-bg"></div>
+  </div>
+
+  <div class="relative z-10 mx-auto flex w-full max-w-[1500px] flex-col justify-between">
+    <div class="text-xs uppercase tracking-[0.2em] text-white/50">TRINARY DIGITAL LAB</div>
+
+    <div class="mt-16 grid items-end gap-12 lg:grid-cols-[1.4fr_.6fr]">
+      <div>
+        <h1 class="max-w-[1100px] text-[clamp(3.3rem,8vw,8rem)] font-bold leading-[0.88] tracking-[-0.075em]">
+          WE BUILD DIGITAL
+          <span class="bg-gradient-to-r from-[#35B85A] to-[#67E58A] bg-clip-text text-transparent">EXPERIENCES</span>
+          THAT MOVE BUSINESSES FORWARD.
+        </h1>
+
+        <div class="mt-10 max-w-xl">
+          <p class="text-base leading-7 text-white/60 md:text-lg">
+            Brand strategy, design and development for businesses ready to look better, communicate clearer and grow online.
+          </p>
+
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a href="#contact" data-cursor class="magnetic group inline-flex items-center gap-4 rounded-full bg-gradient-to-r from-[#185327] to-[#35B85A] px-6 py-4 text-sm font-semibold">
+              START A PROJECT
+              <span class="transition-transform group-hover:translate-x-1">↗</span>
+            </a>
+            <a href="#work" data-cursor class="magnetic group inline-flex items-center gap-4 rounded-full border border-white/15 px-6 py-4 text-sm font-semibold">
+              VIEW OUR WORK
+              <span class="transition-transform group-hover:translate-x-1">↗</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="relative mx-auto h-[350px] w-full max-w-[500px] lg:h-[500px]">
+        <div class="absolute inset-0 rounded-[40px] border border-white/10 bg-[#0A100C]/70 backdrop-blur-sm"></div>
+        <div class="absolute left-[15%] top-[15%] h-[180px] w-[180px] rounded-full bg-[#35B85A]/30 blur-[70px]"></div>
+        <div class="float absolute left-[18%] top-[24%] h-32 w-32 rounded-full bg-gradient-to-br from-[#185327] to-[#67E58A]"></div>
+
+        <div class="absolute right-[10%] top-[20%] rounded-2xl border border-white/10 bg-white/[0.04] p-5 backdrop-blur-xl">
+          <span class="text-xs text-white/40">DIGITAL / BRAND / EXPERIENCE</span>
+          <div class="mt-3 text-xl font-semibold">BUILD WITH INTENT.</div>
+        </div>
+
+        <div class="absolute bottom-[15%] left-[12%] rounded-2xl border border-[#67E58A]/20 bg-[#0E1711]/80 p-5 backdrop-blur-xl">
+          <div class="text-3xl font-bold text-[#67E58A]">TRINARY</div>
+          <div class="mt-1 text-xs text-white/40">DIGITAL LAB</div>
+        </div>
+
+        <div class="absolute bottom-[20%] right-[15%] h-20 w-20 rounded-full border border-[#35B85A]/30"></div>
+      </div>
+    </div>
+
+    <div class="mt-16 flex items-center justify-between border-t border-white/10 pt-5 text-[10px] uppercase tracking-[0.18em] text-white/40">
+      <span>BASED IN NIGERIA · WORKING GLOBALLY</span>
+      <span class="hidden items-center gap-3 md:flex">SCROLL <span class="h-10 w-px bg-white/30"></span></span>
+    </div>
+  </div>
+</section>
+
+<!-- Intro -->
+<section class="px-5 py-32 md:px-8 md:py-52">
+  <div class="mx-auto max-w-[1500px]">
+    <div class="reveal mb-6 flex items-center gap-3 text-xs font-medium uppercase tracking-[0.2em] text-[#67E58A]">
+      <span class="h-1.5 w-1.5 rounded-full bg-[#67E58A]"></span> OUR APPROACH
+    </div>
+    <h2 class="reveal max-w-[1250px] text-[clamp(2.8rem,6.5vw,7rem)] font-semibold leading-[0.94] tracking-[-0.07em]">
+      WE DON'T JUST MAKE THINGS LOOK GOOD.
+    </h2>
+    <h3 class="reveal mt-8 max-w-[1200px] text-[clamp(2rem,5vw,5.5rem)] font-semibold leading-[0.95] tracking-[-0.065em] text-white/40">
+      WE DESIGN <span class="text-[#67E58A]">DIGITAL EXPERIENCES</span> THAT GIVE BUSINESSES SOMETHING TO SAY — AND A BETTER WAY TO SAY IT.
+    </h3>
+  </div>
+</section>
+
+<!-- Services -->
+<section id="services" class="border-t border-white/10 px-5 py-32 md:px-8 md:py-44">
+  <div class="mx-auto max-w-[1500px]">
+    <div class="reveal mb-6 flex items-center gap-3 text-xs font-medium uppercase tracking-[0.2em] text-[#67E58A]">
+      <span class="h-1.5 w-1.5 rounded-full bg-[#67E58A]"></span> WHAT WE DO
+    </div>
+
+    <div class="mb-20 grid gap-10 lg:grid-cols-[1fr_.6fr]">
+      <h2 class="reveal text-[clamp(3rem,6vw,6.5rem)] font-semibold leading-[0.9] tracking-[-0.07em]">
+        WE DESIGN, BUILD AND SHAPE DIGITAL EXPERIENCES.
+      </h2>
+      <p class="reveal self-end max-w-md text-base leading-7 text-white/55">
+        We bring strategy, design and technology together to create brands and digital experiences people remember.
+      </p>
+    </div>
+
+    <div class="grid border-t border-white/10 md:grid-cols-2" id="servicesGrid"></div>
+  </div>
+</section>
+
+<!-- Work -->
+<section id="work" class="px-5 py-32 md:px-8 md:py-44">
+  <div class="mx-auto max-w-[1500px]">
+    <div class="reveal mb-6 flex items-center gap-3 text-xs font-medium uppercase tracking-[0.2em] text-[#67E58A]">
+      <span class="h-1.5 w-1.5 rounded-full bg-[#67E58A]"></span> SELECTED WORK
+    </div>
+    <div class="mb-16 max-w-5xl">
+      <h2 class="reveal text-[clamp(3rem,6vw,7rem)] font-semibold leading-[0.9] tracking-[-0.07em]">
+        A FEW THINGS WE'VE DESIGNED, BUILT AND BROUGHT TO LIFE.
+      </h2>
+    </div>
+    <div class="grid gap-5 md:grid-cols-2" id="workGrid"></div>
+  </div>
+</section>
+
+<!-- Work modal -->
+<div id="workModal" class="fixed inset-0 z-[100] hidden overflow-y-auto bg-[#050807]/95 p-5 backdrop-blur-xl md:p-10">
+  <div class="mx-auto max-w-[1200px]">
+    <button id="closeModalBtn" class="mb-10 rounded-full border border-white/15 px-5 py-3 text-sm">← BACK TO WORK</button>
+    <div class="grid gap-10 md:grid-cols-[1fr_.35fr]">
+      <div>
+        <div id="modalCategory" class="mb-5 text-xs uppercase tracking-[0.2em] text-[#67E58A]"></div>
+        <h2 id="modalTitle" class="text-[clamp(3rem,7vw,7rem)] font-bold leading-[0.9] tracking-[-0.07em]"></h2>
+        <p id="modalDesc" class="mt-8 max-w-xl text-lg leading-8 text-white/60"></p>
+      </div>
+      <div>
+        <div class="text-xs text-white/40">YEAR</div>
+        <div id="modalYear" class="mt-2"></div>
+        <div class="mt-10 text-xs text-white/40">SERVICES</div>
+        <div id="modalServices" class="mt-3 space-y-2"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Process -->
+<section id="process" class="border-t border-white/10 px-5 py-32 md:px-8 md:py-44">
+  <div class="mx-auto max-w-[1500px]">
+    <div class="reveal mb-6 flex items-center gap-3 text-xs font-medium uppercase tracking-[0.2em] text-[#67E58A]">
+      <span class="h-1.5 w-1.5 rounded-full bg-[#67E58A]"></span> HOW WE WORK
+    </div>
+    <h2 class="reveal mb-24 max-w-5xl text-[clamp(3rem,6vw,7rem)] font-semibold leading-[0.9] tracking-[-0.07em]">
+      FROM FIRST IDEA TO FINAL LAUNCH.
+    </h2>
+    <div class="relative">
+      <div class="absolute left-[23px] top-0 hidden h-full w-px bg-white/10 md:block"></div>
+      <div class="space-y-5 md:space-y-0" id="processSteps"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Statement -->
+<section class="relative overflow-hidden px-5 py-40 md:px-8 md:py-64">
+  <div class="absolute left-1/2 top-1/2 h-[500px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#35B85A]/10 blur-[150px]"></div>
+  <div class="relative mx-auto max-w-[1500px]">
+    <h2 class="reveal text-[clamp(3.5rem,8vw,9rem)] font-semibold leading-[0.86] tracking-[-0.08em]">
+      GOOD DESIGN GETS ATTENTION.<br />
+      <span class="text-white/35">GREAT DIGITAL EXPERIENCES</span> KEEP IT.
+    </h2>
+  </div>
+</section>
+
+<!-- Why Trinary -->
+<section class="border-t border-white/10 px-5 py-32 md:px-8 md:py-44">
+  <div class="mx-auto max-w-[1500px]">
+    <div class="reveal mb-6 flex items-center gap-3 text-xs font-medium uppercase tracking-[0.2em] text-[#67E58A]">
+      <span class="h-1.5 w-1.5 rounded-full bg-[#67E58A]"></span> WHY TRINARY
+    </div>
+    <h2 class="reveal max-w-5xl text-[clamp(3rem,6vw,7rem)] font-semibold leading-[0.9] tracking-[-0.07em]">
+      DESIGN WITH PURPOSE.<br />BUILT TO MOVE.
+    </h2>
+    <div class="mt-24 grid md:grid-cols-2" id="principlesGrid"></div>
+  </div>
+</section>
+
+<!-- About -->
+<section id="about" class="border-t border-white/10 px-5 py-32 md:px-8 md:py-44">
+  <div class="mx-auto grid max-w-[1500px] gap-20 lg:grid-cols-[1fr_.7fr]">
+    <div>
+      <div class="reveal mb-6 flex items-center gap-3 text-xs font-medium uppercase tracking-[0.2em] text-[#67E58A]">
+        <span class="h-1.5 w-1.5 rounded-full bg-[#67E58A]"></span> ABOUT TRINARY
+      </div>
+      <h2 class="reveal text-[clamp(3rem,6vw,7rem)] font-semibold leading-[0.9] tracking-[-0.07em]">
+        A DIGITAL LAB FOR AMBITIOUS IDEAS.
+      </h2>
+      <p class="reveal mt-10 max-w-2xl text-lg leading-8 text-white/55">
+        Trinary Digital Lab is a creative studio working at the intersection of brand, design and technology.
+        <br /><br />
+        We help businesses turn ideas into identities, websites and digital experiences that feel clear, modern and unmistakably theirs.
+      </p>
+      <div class="reveal mt-12 flex gap-10 text-xs uppercase tracking-[0.15em] text-white/40">
+        <span>BASED IN NIGERIA</span>
+        <span>WORKING GLOBALLY</span>
+      </div>
+    </div>
+    <div class="relative min-h-[500px] overflow-hidden rounded-[2rem] border border-white/10 bg-[#0A100C]">
+      <div class="absolute left-1/2 top-1/2 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-br from-[#185327] to-[#67E58A]"></div>
+      <div class="absolute inset-10 rounded-[1.5rem] border border-white/10"></div>
+      <div class="absolute bottom-10 left-10">
+        <div class="text-4xl font-bold tracking-[-0.06em]">TRINARY</div>
+        <div class="mt-2 text-xs uppercase tracking-[0.2em] text-white/40">DIGITAL LAB</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials -->
+<section class="border-t border-white/10 px-5 py-32 md:px-8 md:py-44">
+  <div class="mx-auto max-w-[1500px]">
+    <div class="reveal mb-6 flex items-center gap-3 text-xs font-medium uppercase tracking-[0.2em] text-[#67E58A]">
+      <span class="h-1.5 w-1.5 rounded-full bg-[#67E58A]"></span> CLIENT WORDS
+    </div>
+    <h2 class="reveal max-w-5xl text-[clamp(3rem,6vw,7rem)] font-semibold leading-[0.9] tracking-[-0.07em]">
+      GOOD WORK SHOULD FEEL GOOD TO USE.
+    </h2>
+
+    <div class="mt-24 grid gap-10 lg:grid-cols-[1fr_.3fr]">
+      <div id="testimonialContent">
+        <div id="testimonialQuote" class="max-w-4xl text-[clamp(2rem,4vw,4rem)] font-medium leading-[1.05] tracking-[-0.05em]"></div>
+        <div class="mt-10">
+          <div id="testimonialClient" class="font-semibold"></div>
+          <div id="testimonialRole" class="mt-1 text-sm text-white/40"></div>
+        </div>
+      </div>
+      <div class="flex items-end gap-3 lg:justify-end">
+        <button id="prevTestimonial" class="h-12 w-12 rounded-full border border-white/15" aria-label="Previous testimonial">←</button>
+        <button id="nextTestimonial" class="h-12 w-12 rounded-full border border-white/15" aria-label="Next testimonial">→</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Pricing -->
+<section class="border-t border-white/10 px-5 py-32 md:px-8 md:py-44">
+  <div class="mx-auto max-w-[1500px]">
+    <div class="reveal mb-6 flex items-center gap-3 text-xs font-medium uppercase tracking-[0.2em] text-[#67E58A]">
+      <span class="h-1.5 w-1.5 rounded-full bg-[#67E58A]"></span> PACKAGES
+    </div>
+    <h2 class="reveal max-w-5xl text-[clamp(3rem,6vw,7rem)] font-semibold leading-[0.9] tracking-[-0.07em]">
+      BUILT AROUND WHAT YOU NEED.
+    </h2>
+    <div class="mt-20 grid gap-4 lg:grid-cols-3" id="pricingGrid"></div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="border-t border-white/10 px-5 py-32 md:px-8 md:py-44">
+  <div class="mx-auto max-w-[1100px]">
+    <div class="reveal mb-6 flex items-center gap-3 text-xs font-medium uppercase tracking-[0.2em] text-[#67E58A]">
+      <span class="h-1.5 w-1.5 rounded-full bg-[#67E58A]"></span> FAQ
+    </div>
+    <h2 class="reveal mb-20 text-[clamp(3rem,6vw,7rem)] font-semibold leading-[0.9] tracking-[-0.07em]">
+      QUESTIONS, ANSWERED.
+    </h2>
+    <div class="border-t border-white/10" id="faqList"></div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact" class="border-t border-white/10 px-5 py-32 md:px-8 md:py-44">
+  <div class="mx-auto max-w-[1500px]">
+    <div class="reveal mb-6 flex items-center gap-3 text-xs font-medium uppercase tracking-[0.2em] text-[#67E58A]">
+      <span class="h-1.5 w-1.5 rounded-full bg-[#67E58A]"></span> CONTACT
+    </div>
+    <div class="grid gap-20 lg:grid-cols-[.8fr_1fr]">
+      <div>
+        <h2 class="reveal text-[clamp(3rem,7vw,8rem)] font-semibold leading-[0.85] tracking-[-0.08em]">LET'S TALK.</h2>
+        <p class="reveal mt-8 max-w-md text-lg leading-8 text-white/50">
+          Tell us what you're working on. We'll figure out where to start.
+        </p>
+        <div class="reveal mt-10 space-y-3 text-sm text-white/50">
+          <div>EMAIL</div>
+          <div class="text-white">hello@trinarydigitallab.com</div>
+          <div class="mt-6">WHATSAPP</div>
+          <div>Add your WhatsApp link</div>
+          <div class="mt-6">INSTAGRAM</div>
+          <div>Add your Instagram link</div>
+          <div class="mt-6">LINKEDIN</div>
+          <div>Add your LinkedIn link</div>
+        </div>
+      </div>
+
+      <form id="contactForm" class="space-y-4">
+        <input required name="name" placeholder="Name" class="w-full border-b border-white/15 bg-transparent px-0 py-5 outline-none placeholder:text-white/30 focus:border-[#35B85A]" />
+        <input required type="email" name="email" placeholder="Email" class="w-full border-b border-white/15 bg-transparent px-0 py-5 outline-none placeholder:text-white/30 focus:border-[#35B85A]" />
+        <input name="company" placeholder="Company" class="w-full border-b border-white/15 bg-transparent px-0 py-5 outline-none placeholder:text-white/30 focus:border-[#35B85A]" />
+        <select name="projectType" defaultValue="" class="w-full border-b border-white/15 bg-[#050807] px-0 py-5 text-white outline-none focus:border-[#35B85A]">
+          <option value="" disabled selected>Project type</option>
+          <option>Brand Identity</option>
+          <option>Website</option>
+          <option>Web Development</option>
+          <option>UI/UX</option>
+          <option>Creative Design</option>
+          <option>Other</option>
+        </select>
+        <select name="budget" class="w-full border-b border-white/15 bg-[#050807] px-0 py-5 text-white outline-none focus:border-[#35B85A]">
+          <option value="" disabled selected>Budget</option>
+          <option>Let's discuss</option>
+          <option>Under ₦500k</option>
+          <option>₦500k–₦1m</option>
+          <option>₦1m–₦2m</option>
+          <option>₦2m+</option>
+        </select>
+        <textarea required name="message" rows="5" placeholder="Tell us about your project..." class="w-full resize-none border-b border-white/15 bg-transparent px-0 py-5 outline-none placeholder:text-white/30 focus:border-[#35B85A]"></textarea>
+        <button type="submit" class="group mt-8 inline-flex items-center gap-5 rounded-full bg-gradient-to-r from-[#185327] to-[#35B85A] px-7 py-5 text-sm font-semibold">
+          SEND INQUIRY
+          <span class="transition-transform group-hover:translate-x-1">↗</span>
+        </button>
+        <p id="formNote" class="hidden text-sm text-[#67E58A]">Thanks — we'll be in touch shortly.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- Final CTA -->
+<section class="relative overflow-hidden px-5 py-32 md:px-8 md:py-52">
+  <div class="absolute inset-0 bg-gradient-to-br from-[#185327] via-[#23773D] to-[#35B85A]"></div>
+  <div class="absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#67E58A]/20 blur-[120px]"></div>
+  <div class="relative mx-auto max-w-[1300px] text-center">
+    <h2 class="reveal text-[clamp(3.5rem,8vw,9rem)] font-bold leading-[0.85] tracking-[-0.08em]">
+      READY TO BUILD SOMETHING BETTER?
+    </h2>
+    <p class="reveal mx-auto mt-8 max-w-xl text-base leading-7 text-white/75 md:text-lg">
+      Tell us what you're working on. We'll figure out where to start.
+    </p>
+    <div class="reveal mt-10 flex flex-wrap justify-center gap-3">
+      <a href="#contact" class="rounded-full bg-[#050807] px-7 py-5 text-sm font-semibold text-white transition-transform hover:scale-105">START A PROJECT ↗</a>
+      <a href="mailto:hello@trinarydigitallab.com" class="rounded-full border border-white/30 px-7 py-5 text-sm font-semibold transition-colors hover:bg-white hover:text-[#050807]">SAY HELLO</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="border-t border-white/10 px-5 py-16 md:px-8">
+  <div class="mx-auto max-w-[1500px]">
+    <div class="grid gap-12 md:grid-cols-4">
+      <div class="md:col-span-2">
+        <div class="text-3xl font-bold tracking-[-0.06em]">TRINARY</div>
+        <p class="mt-4 text-sm text-white/40">Brand. Design. Digital.</p>
+      </div>
+      <div>
+        <div class="mb-5 text-xs uppercase tracking-[0.2em] text-white/30">NAVIGATION</div>
+        <div class="space-y-3 text-sm text-white/60">
+          <a class="block hover:text-white" href="#work">Work</a>
+          <a class="block hover:text-white" href="#services">Services</a>
+          <a class="block hover:text-white" href="#process">Process</a>
+          <a class="block hover:text-white" href="#about">About</a>
+          <a class="block hover:text-white" href="#contact">Contact</a>
+        </div>
+      </div>
+      <div>
+        <div class="mb-5 text-xs uppercase tracking-[0.2em] text-white/30">SOCIAL</div>
+        <div class="space-y-3 text-sm text-white/60">
+          <a href="#">Instagram</a><br />
+          <a href="#">LinkedIn</a><br />
+          <a href="#">WhatsApp</a>
+        </div>
+      </div>
+    </div>
+    <div class="mt-20 flex flex-col justify-between gap-5 border-t border-white/10 pt-6 text-xs text-white/30 md:flex-row">
+      <span>© 2026 Trinary Digital Lab. All rights reserved.</span>
+      <span>TRINARY DIGITAL LAB</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // ---------- Data ----------
+  const projects = [
+    { title:"LANDZERO", category:"REAL ESTATE / DIGITAL EXPERIENCE", description:"A premium digital experience for a modern real estate brand.", year:"2026", services:["Web Design","Development","Creative Design"] },
+    { title:"ZEROPAY", category:"FINTECH / PRODUCT DESIGN", description:"A simple digital product experience designed around accessible property ownership.", year:"2026", services:["UI/UX Design","Product Design","Creative Design"] },
+    { title:"EDGELINE", category:"REAL ESTATE / WEB DESIGN", description:"A modern property website focused on discovery and conversion.", year:"2026", services:["Web Design","Development"] },
+    { title:"BETALOGISTICS", category:"LOGISTICS / DIGITAL PLATFORM", description:"A digital experience designed to make logistics services easier to discover and use.", year:"2026", services:["Web Design","UI/UX","Development"] },
+    { title:"TRINARY DIGITAL LAB", category:"BRAND / DIGITAL", description:"The evolving digital identity and creative work of Trinary Digital Lab.", year:"2026", services:["Brand Identity","Creative Design","Web Design"] },
+  ];
+
+  const services = [
+    { number:"01", title:"BRAND IDENTITY", description:"Visual identities built to make businesses recognizable, memorable and consistent." },
+    { number:"02", title:"WEB DESIGN", description:"High-end websites designed around your audience, your brand and your business goals." },
+    { number:"03", title:"WEB DEVELOPMENT", description:"Fast, responsive websites engineered to perform across devices and browsers." },
+    { number:"04", title:"UI/UX DESIGN", description:"Clear and intuitive interfaces designed to make digital products easier to understand and use." },
+    { number:"05", title:"CREATIVE DESIGN", description:"Campaigns, social content and marketing visuals designed to make your message stand out." },
+    { number:"06", title:"DIGITAL STRATEGY", description:"Practical digital direction that helps turn ideas into experiences with a clear purpose." },
+  ];
+
+  const steps = [
+    { number:"01", title:"DISCOVER", text:"We understand the business, audience, goals and problem before designing anything." },
+    { number:"02", title:"DEFINE", text:"We develop the direction, structure and strategy that will guide the project." },
+    { number:"03", title:"DESIGN + BUILD", text:"We turn the direction into a polished visual and digital experience." },
+    { number:"04", title:"LAUNCH + REFINE", text:"We launch, observe and improve the experience where needed." },
+  ];
+
+  const principles = [
+    ["01","STRATEGY FIRST","We don't start with decoration. We start with understanding."],
+    ["02","DESIGN WITH PURPOSE","Every visual decision should help communicate something."],
+    ["03","BUILT FOR REAL PEOPLE","Beautiful interfaces still need to be simple and useful."],
+    ["04","FROM IDEA TO LAUNCH","We can take projects from early concept through design, development and launch."],
+  ];
+
+  const testimonials = [
+    { quote:"Trinary understood what we were trying to achieve and turned the idea into something clear, polished and easy to use.", client:"Client Name", company:"Company Name", role:"Business Owner" },
+    { quote:"The process was clear from the beginning. We had a much stronger digital presence after the project.", client:"Client Name", company:"Company Name", role:"Founder" },
+    { quote:"They brought together the creative and technical sides of the project without making the process complicated.", client:"Client Name", company:"Company Name", role:"Marketing Lead" },
+  ];
+
+  const packages = [
+    { title:"STARTER", description:"For businesses that need a strong digital foundation.", features:["Strategy session","Brand direction","Landing page","Responsive design","Basic development"] },
+    { title:"GROWTH", description:"For businesses ready for a complete digital presence.", features:["Strategy","Visual direction","Multi-page website","UI/UX","Responsive development","SEO structure","Deployment"], featured:true },
+    { title:"CUSTOM", description:"For more complex digital projects.", features:["Custom strategy","Brand system","Custom website","Product/UI design","Advanced interactions","Integrations","Ongoing support"] },
+  ];
+
+  const faq = [
+    { q:"WHAT KIND OF BUSINESSES DO YOU WORK WITH?", a:"Startups, growing businesses and established brands looking to improve how they present themselves digitally." },
+    { q:"DO YOU ONLY DESIGN WEBSITES?", a:"No. We work across brand identity, web design, development, UI/UX and creative digital design." },
+    { q:"CAN YOU DEVELOP THE WEBSITE AFTER DESIGNING IT?", a:"Yes. Design and development can be handled together as one project." },
+    { q:"CAN YOU WORK WITH OUR EXISTING BRAND?", a:"Yes. We can work within an existing identity or help evolve it." },
+    { q:"HOW LONG DOES A PROJECT TAKE?", a:"Timelines depend on the scope and complexity of each project. A clear timeline is established before work begins." },
+    { q:"HOW DO WE START?", a:"Send us a message about what you're trying to build and we'll discuss the best next step." },
+  ];
+
+  // ---------- Render: Services ----------
+  const servicesGrid = document.getElementById('servicesGrid');
+  services.forEach((s, i) => {
+    const el = document.createElement('article');
+    el.className = 'reveal group border-b border-white/10 p-7 md:p-10 md:odd:border-r';
+    el.style.transitionDelay = (i * 0.05) + 's';
+    el.innerHTML = `
+      <div class="flex items-start justify-between">
+        <span class="text-xs text-[#67E58A]">${s.number}</span>
+        <span class="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 transition-all duration-500 group-hover:border-[#67E58A] group-hover:bg-[#67E58A] group-hover:text-[#050807]">↗</span>
+      </div>
+      <h3 class="mt-20 text-3xl font-semibold tracking-[-0.05em] md:text-5xl">${s.title}</h3>
+      <p class="mt-5 max-w-lg text-sm leading-6 text-white/50 md:text-base">${s.description}</p>
+    `;
+    servicesGrid.appendChild(el);
+  });
+
+  // ---------- Render: Work ----------
+  const workGrid = document.getElementById('workGrid');
+  const gradients = [
+    'from-[#185327] to-[#35B85A]', 'from-[#0E1711] to-[#185327]', 'from-[#35B85A] to-[#67E58A]',
+    'from-[#0A100C] to-[#185327]', 'from-[#185327] to-[#0A100C]'
+  ];
+  projects.forEach((p, i) => {
+    const wide = (i === 0 || i === 3);
+    const el = document.createElement('article');
+    el.className = `reveal group relative cursor-pointer overflow-hidden rounded-[2rem] border border-white/10 bg-[#0A100C] ${wide ? 'md:col-span-2' : 'md:col-span-1'}`;
+    el.style.transitionDelay = (i * 0.05) + 's';
+    el.setAttribute('data-cursor','');
+    el.innerHTML = `
+      <div class="relative overflow-hidden ${wide ? 'aspect-[16/9]' : 'aspect-[4/5]'}">
+        <div class="absolute inset-0 bg-gradient-to-br ${gradients[i % gradients.length]} opacity-70 transition-transform duration-700 group-hover:scale-105"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-[#050807] via-transparent to-transparent"></div>
+        <div class="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100 bg-[#35B85A]/10"></div>
+        <div class="absolute bottom-0 left-0 right-0 p-6 md:p-8">
+          <div class="mb-4 text-[10px] uppercase tracking-[0.2em] text-[#67E58A]">${p.category}</div>
+          <div class="flex items-end justify-between gap-5">
+            <div>
+              <h3 class="text-3xl font-semibold tracking-[-0.05em] md:text-5xl">${p.title}</h3>
+              <p class="mt-3 max-w-lg text-sm leading-6 text-white/60">${p.description}</p>
+            </div>
+            <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-white/20 transition-all duration-500 group-hover:border-[#67E58A] group-hover:bg-[#67E58A] group-hover:text-[#050807]">↗</div>
+          </div>
+        </div>
+      </div>
+    `;
+    el.addEventListener('click', () => openModal(p));
+    workGrid.appendChild(el);
+  });
+
+  function openModal(p){
+    document.getElementById('modalCategory').textContent = p.category;
+    document.getElementById('modalTitle').textContent = p.title;
+    document.getElementById('modalDesc').textContent = p.description;
+    document.getElementById('modalYear').textContent = p.year;
+    document.getElementById('modalServices').innerHTML = p.services.map(s => `<div>${s}</div>`).join('');
+    document.getElementById('workModal').classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+  }
+  document.getElementById('closeModalBtn').addEventListener('click', () => {
+    document.getElementById('workModal').classList.add('hidden');
+    document.body.style.overflow = '';
+  });
+
+  // ---------- Render: Process ----------
+  const processSteps = document.getElementById('processSteps');
+  steps.forEach((s, i) => {
+    const el = document.createElement('div');
+    el.className = 'reveal relative grid gap-5 border-b border-white/10 py-10 md:grid-cols-[90px_1fr_1fr] md:py-16';
+    el.style.transitionDelay = (i * 0.08) + 's';
+    el.innerHTML = `
+      <div class="flex h-12 w-12 items-center justify-center rounded-full border border-[#35B85A]/40 bg-[#0A100C] text-sm text-[#67E58A]">${s.number}</div>
+      <h3 class="text-3xl font-semibold tracking-[-0.05em] md:text-5xl">${s.title}</h3>
+      <p class="max-w-md text-base leading-7 text-white/50">${s.text}</p>
+    `;
+    processSteps.appendChild(el);
+  });
+
+  // ---------- Render: Principles ----------
+  const principlesGrid = document.getElementById('principlesGrid');
+  principles.forEach(([number, title, text]) => {
+    const el = document.createElement('div');
+    el.className = 'reveal border-b border-white/10 p-8 md:odd:border-r';
+    el.innerHTML = `
+      <div class="text-xs text-[#67E58A]">${number}</div>
+      <h3 class="mt-20 text-3xl font-semibold tracking-[-0.05em]">${title}</h3>
+      <p class="mt-4 max-w-md text-white/50">${text}</p>
+    `;
+    principlesGrid.appendChild(el);
+  });
+
+  // ---------- Render: Testimonials ----------
+  let active = 0;
+  function renderTestimonial(){
+    const item = testimonials[active];
+    document.getElementById('testimonialQuote').textContent = `"${item.quote}"`;
+    document.getElementById('testimonialClient').textContent = item.client;
+    document.getElementById('testimonialRole').textContent = `${item.role} · ${item.company}`;
+    const content = document.getElementById('testimonialContent');
+    content.style.opacity = 0;
+    content.style.transform = 'translateY(12px)';
+    requestAnimationFrame(() => {
+      content.style.transition = 'opacity .5s, transform .5s';
+      content.style.opacity = 1;
+      content.style.transform = 'translateY(0)';
+    });
+  }
+  renderTestimonial();
+  document.getElementById('prevTestimonial').addEventListener('click', () => {
+    active = (active - 1 + testimonials.length) % testimonials.length;
+    renderTestimonial();
+  });
+  document.getElementById('nextTestimonial').addEventListener('click', () => {
+    active = (active + 1) % testimonials.length;
+    renderTestimonial();
+  });
+
+  // ---------- Render: Pricing ----------
+  const pricingGrid = document.getElementById('pricingGrid');
+  packages.forEach(item => {
+    const el = document.createElement('div');
+    el.className = `reveal rounded-[2rem] border p-7 md:p-9 ${item.featured ? 'border-[#35B85A]/50 bg-gradient-to-b from-[#185327]/30 to-[#0A100C]' : 'border-white/10 bg-[#0A100C]'}`;
+    el.innerHTML = `
+      <div class="text-xs uppercase tracking-[0.2em] text-[#67E58A]">${item.title}</div>
+      <p class="mt-8 min-h-16 text-white/55">${item.description}</p>
+      <div class="my-10 h-px bg-white/10"></div>
+      <div class="space-y-4">
+        ${item.features.map(f => `<div class="flex gap-3 text-sm text-white/70"><span class="text-[#67E58A]">+</span>${f}</div>`).join('')}
+      </div>
+      <a href="#contact" class="mt-12 flex w-full items-center justify-between rounded-full border border-white/15 px-5 py-4 text-sm font-medium transition-colors hover:border-[#35B85A]">
+        REQUEST A QUOTE <span>↗</span>
+      </a>
+    `;
+    pricingGrid.appendChild(el);
+  });
+
+  // ---------- Render: FAQ ----------
+  const faqList = document.getElementById('faqList');
+  faq.forEach((item, index) => {
+    const wrap = document.createElement('div');
+    wrap.className = 'border-b border-white/10';
+    wrap.innerHTML = `
+      <button class="faq-btn flex w-full items-center justify-between gap-6 py-7 text-left" aria-expanded="false">
+        <span class="text-lg font-medium md:text-xl">${item.q}</span>
+        <span class="faq-icon shrink-0 text-2xl text-[#67E58A] transition-transform duration-300">+</span>
+      </button>
+      <div class="faq-panel">
+        <p class="max-w-2xl pb-8 text-base leading-7 text-white/50">${item.a}</p>
+      </div>
+    `;
+    const btn = wrap.querySelector('.faq-btn');
+    const panel = wrap.querySelector('.faq-panel');
+    const icon = wrap.querySelector('.faq-icon');
+    btn.addEventListener('click', () => {
+      const isOpen = panel.style.maxHeight && panel.style.maxHeight !== '0px';
+      document.querySelectorAll('.faq-panel').forEach(p => p.style.maxHeight = '0px');
+      document.querySelectorAll('.faq-icon').forEach(i => i.style.transform = 'rotate(0deg)');
+      document.querySelectorAll('.faq-btn').forEach(b => b.setAttribute('aria-expanded','false'));
+      if (!isOpen){
+        panel.style.maxHeight = panel.scrollHeight + 'px';
+        icon.style.transform = 'rotate(45deg)';
+        btn.setAttribute('aria-expanded','true');
+      }
+    });
+    faqList.appendChild(wrap);
+  });
+
+  // ---------- Navbar scroll state ----------
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.style.background = window.scrollY > 40 ? 'rgba(10,16,12,0.82)' : 'rgba(5,8,7,0)';
+  });
+
+  // ---------- Mobile menu ----------
+  const mobileMenu = document.getElementById('mobileMenu');
+  document.getElementById('menuBtn').addEventListener('click', () => mobileMenu.classList.add('open'));
+  document.getElementById('closeMenuBtn').addEventListener('click', () => mobileMenu.classList.remove('open'));
+  document.querySelectorAll('.mobile-link').forEach(l => l.addEventListener('click', () => mobileMenu.classList.remove('open')));
+
+  // ---------- Scroll reveal ----------
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting){
+        entry.target.classList.add('in');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal, .reveal-l').forEach(el => observer.observe(el));
+
+  // ---------- Custom cursor (desktop, fine pointer only) ----------
+  const cursor = document.getElementById('cursorDot');
+  const fine = window.matchMedia('(pointer: fine)').matches;
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (fine && !reduced){
+    window.addEventListener('mousemove', (e) => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+    document.addEventListener('mouseover', (e) => {
+      if (e.target.closest('a, button, [data-cursor]')){
+        cursor.style.width = '54px';
+        cursor.style.height = '54px';
+        cursor.textContent = 'VIEW';
+      }
+    });
+    document.addEventListener('mouseout', (e) => {
+      if (e.target.closest('a, button, [data-cursor]')){
+        cursor.style.width = '10px';
+        cursor.style.height = '10px';
+        cursor.textContent = '';
+      }
+    });
+  } else {
+    cursor.style.display = 'none';
+  }
+
+  // ---------- Magnetic buttons ----------
+  if (fine && !reduced){
+    document.querySelectorAll('.magnetic').forEach(btn => {
+      btn.addEventListener('mousemove', (e) => {
+        const rect = btn.getBoundingClientRect();
+        const x = (e.clientX - (rect.left + rect.width/2)) * 0.15;
+        const y = (e.clientY - (rect.top + rect.height/2)) * 0.15;
+        btn.style.transform = `translate(${x}px, ${y}px)`;
+      });
+      btn.addEventListener('mouseleave', () => { btn.style.transform = 'translate(0,0)'; });
+    });
+  }
+
+  // ---------- Contact form ----------
+  document.getElementById('contactForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    document.getElementById('formNote').classList.remove('hidden');
+    e.target.reset();
+  });
+})();
+</script>
+</body>
+</html>
