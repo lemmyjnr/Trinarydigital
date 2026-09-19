@@ -12,21 +12,30 @@ Single-file static site (HTML + Tailwind CDN + vanilla JS). No build step requir
 1. Push to a repo, enable Pages in repo Settings → Pages.
 2. Set source to the branch/root containing `index.html`.
 
-## Replacing placeholder media
-Search `index.html` for `ph-media` — every spot that needs a real image or video has this class.
-Placeholders are rendered as photo/video-style tiles (not icons) so the layout previews close to
-final. There are 7 spots total:
-- 5 project thumbnails in the "Selected Work" grid — each project object in the `projects` array
-  has a `media: "image"` or `media: "video"` field controlling which placeholder style renders
-- 1 project cover inside the work detail modal (`#modalMedia`, updates per project automatically)
-- 1 optional client headshot in the testimonials section
+## Real portfolio images
+The 4 project thumbnails, the work-detail modal, and the About section founder photo now
+point directly at your real assets on Behance/Cloudinary (pulled from trinarymedia.lovable.app).
+These will NOT render in Claude's in-chat artifact preview (it blocks loading images from other
+sites), but will display correctly once this file is deployed to Vercel/GitHub Pages, since a real
+website has no such restriction. If any of those source URLs ever change or go down, the page
+gracefully falls back to a simple line-icon placeholder instead of a broken image.
 
-To swap a project thumbnail: find its entry in the `projects` array near the top of the `<script>`
-block, and replace the `${p.media === 'video' ? phVideo() : phImage()}` call for that card with a
-real `<img src="..." class="absolute inset-0 h-full w-full object-cover">` or `<video>` tag. Drop
-your assets in an `/assets` folder (e.g. `/assets/projects/landzero.jpg`) and reference them from
-there.
+## Replacing placeholder media with your own files
+If you'd rather self-host the images (recommended long-term, so you're not dependent on
+Behance/Cloudinary staying up), search `index.html` for `ph-media` and `src:` — each project
+in the `projects` array has an `src` field with the current image URL. Replace it with a path to
+your own file (e.g. `/assets/projects/reina-signatures.jpg`) after dropping your assets in an
+`/assets` folder.
+
+There are 7 media spots total:
+- 4 project thumbnails in the "Selected Work" grid (`media: "image"` or `"video"` controls which
+  placeholder style — icon + play button — renders as a fallback)
+- 1 project cover inside the work detail modal (`#modalMedia`, swaps per project automatically)
+- 1 founder photo in the About section
+- 1 optional client headshot in the testimonials section (still a generic placeholder — no client
+  testimonials were available to pull in yet)
 
 ## Notes
-- Contact form currently just shows a confirmation message on submit — wire it to Formspree, Resend, or your own API endpoint in the `<script>` block's `contactForm` submit handler.
-- Social links (Instagram/LinkedIn/WhatsApp) in the footer and contact section are placeholders — search for `href="#"` and your placeholder text to update them.
+- Contact email is still a placeholder (`hello@trinarydigitallab.com`) — your real site uses a
+  contact form with no public email listed, so update this to your real address.
+- Social links (Instagram, Twitter/X, LinkedIn, Behance) are wired to your real profiles.
