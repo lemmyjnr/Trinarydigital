@@ -510,35 +510,49 @@
 (function(){
   // ---------- Data ----------
   const projects = [
-    { title:"LANDZERO", category:"REAL ESTATE / DIGITAL EXPERIENCE", description:"A premium digital experience for a modern real estate brand.", year:"2026", services:["Web Design","Development","Creative Design"], media:"image" },
-    { title:"ZEROPAY", category:"FINTECH / PRODUCT DESIGN", description:"A simple digital product experience designed around accessible property ownership.", year:"2026", services:["UI/UX Design","Product Design","Creative Design"], media:"image" },
-    { title:"EDGELINE", category:"REAL ESTATE / WEB DESIGN", description:"A modern property website focused on discovery and conversion.", year:"2026", services:["Web Design","Development"], media:"video" },
-    { title:"BETALOGISTICS", category:"LOGISTICS / DIGITAL PLATFORM", description:"A digital experience designed to make logistics services easier to discover and use.", year:"2026", services:["Web Design","UI/UX","Development"], media:"image" },
-    { title:"TRINARY DIGITAL LAB", category:"BRAND / DIGITAL", description:"The evolving digital identity and creative work of Trinary Digital Lab.", year:"2026", services:["Brand Identity","Creative Design","Web Design"], media:"video" },
+    { title:"LANDZERO", category:"REAL ESTATE / DIGITAL EXPERIENCE", description:"A premium digital experience for a modern real estate brand.", year:"2026", services:["Web Design","Development","Creative Design"], media:"image", icon:"building" },
+    { title:"ZEROPAY", category:"FINTECH / PRODUCT DESIGN", description:"A simple digital product experience designed around accessible property ownership.", year:"2026", services:["UI/UX Design","Product Design","Creative Design"], media:"image", icon:"card" },
+    { title:"EDGELINE", category:"REAL ESTATE / WEB DESIGN", description:"A modern property website focused on discovery and conversion.", year:"2026", services:["Web Design","Development"], media:"video", icon:"building" },
+    { title:"BETALOGISTICS", category:"LOGISTICS / DIGITAL PLATFORM", description:"A digital experience designed to make logistics services easier to discover and use.", year:"2026", services:["Web Design","UI/UX","Development"], media:"image", icon:"truck" },
+    { title:"TRINARY DIGITAL LAB", category:"BRAND / DIGITAL", description:"The evolving digital identity and creative work of Trinary Digital Lab.", year:"2026", services:["Brand Identity","Creative Design","Web Design"], media:"video", icon:"spark" },
   ];
 
-  // Placeholder media tiles — styled to read as an actual photo/video thumbnail
-  // rather than an upload icon. Swap the returned markup for a real <img> or
-  // <video> tag per the instructions in README.md.
-  function phImage(){
+  // Placeholder media tiles — content-relevant line illustrations styled to read
+  // as an actual photo/video thumbnail, since real stock photography and video
+  // can't be embedded directly into a hosted page. Swap the returned markup for
+  // a real <img> or <video> tag per the instructions in README.md.
+  const phIcons = {
+    building: `<path d="M40 96V28l20-10 20 10v68" stroke="#67E58A" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M40 96h40" stroke="#67E58A" stroke-width="3" stroke-linecap="round"/>
+      <path d="M50 40h4M66 40h4M50 54h4M66 54h4M50 68h4M66 68h4" stroke="#67E58A" stroke-width="3" stroke-linecap="round"/>
+      <path d="M55 96V82h10v14" stroke="#67E58A" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`,
+    card: `<rect x="24" y="34" width="72" height="52" rx="8" stroke="#67E58A" stroke-width="3" fill="none"/>
+      <path d="M24 50h72" stroke="#67E58A" stroke-width="3"/>
+      <path d="M34 70h16" stroke="#67E58A" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="78" cy="70" r="5" stroke="#67E58A" stroke-width="3" fill="none"/>`,
+    truck: `<path d="M18 76V46h44v30" stroke="#67E58A" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M62 58h20l12 14v4H62V58z" stroke="#67E58A" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="36" cy="82" r="7" stroke="#67E58A" stroke-width="3" fill="none"/>
+      <circle cx="84" cy="82" r="7" stroke="#67E58A" stroke-width="3" fill="none"/>
+      <path d="M18 82h11M93 82h5" stroke="#67E58A" stroke-width="3" stroke-linecap="round"/>`,
+    spark: `<path d="M60 22c3 16 8 21 24 24-16 3-21 8-24 24-3-16-8-21-24-24 16-3 21-8 24-24z" stroke="#67E58A" stroke-width="3" fill="none" stroke-linejoin="round"/>
+      <circle cx="88" cy="88" r="6" stroke="#67E58A" stroke-width="3" fill="none"/>`,
+  };
+  function phImage(kind){
+    const icon = phIcons[kind] || phIcons.building;
     return `
       <div class="ph-media absolute inset-0 bg-[#14201A]">
-        <svg class="absolute inset-0 h-full w-full" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
-          <rect width="400" height="300" fill="#14201A"/>
-          <circle cx="330" cy="55" r="22" fill="#22321F"/>
-          <path d="M0 230 L110 130 L190 200 L260 120 L400 240 L400 300 L0 300 Z" fill="#1B281F"/>
-          <path d="M0 260 L150 175 L230 230 L320 165 L400 260 L400 300 L0 300 Z" fill="#0E1711"/>
-        </svg>
+        <div class="absolute left-1/2 top-1/2 h-40 w-40 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#35B85A]/10 blur-[50px]"></div>
+        <svg class="absolute left-1/2 top-1/2 h-20 w-20 -translate-x-1/2 -translate-y-1/2 opacity-70" viewBox="0 0 120 120">${icon}</svg>
       </div>`;
   }
-  function phVideo(){
+  function phVideo(kind){
+    const icon = phIcons[kind] || phIcons.spark;
     return `
       <div class="ph-media absolute inset-0 bg-[#14201A]">
-        <svg class="absolute inset-0 h-full w-full" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
-          <rect width="400" height="300" fill="#14201A"/>
-          <circle cx="330" cy="55" r="22" fill="#22321F"/>
-          <path d="M0 240 L120 150 L200 210 L270 140 L400 250 L400 300 L0 300 Z" fill="#1B281F"/>
-        </svg>
+        <div class="absolute left-1/2 top-1/2 h-40 w-40 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#35B85A]/10 blur-[50px]"></div>
+        <svg class="absolute left-1/2 top-1/2 h-20 w-20 -translate-x-1/2 -translate-y-1/2 opacity-40" viewBox="0 0 120 120">${icon}</svg>
+        <div class="absolute right-4 top-4 rounded-md bg-black/50 px-2 py-1 text-[10px] tracking-[0.1em] text-white/70 backdrop-blur-sm">VIDEO</div>
         <div class="absolute inset-0 flex items-center justify-center">
           <div class="flex h-16 w-16 items-center justify-center rounded-full bg-white/10 backdrop-blur-sm border border-white/25">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
@@ -622,7 +636,7 @@
     el.innerHTML = `
       <div class="relative overflow-hidden ${wide ? 'aspect-[16/9]' : 'aspect-[4/5]'}">
         <!-- PLACEHOLDER: replace this block with a real <img> or <video> for ${p.title} -->
-        ${p.media === 'video' ? phVideo() : phImage()}
+        ${p.media === 'video' ? phVideo(p.icon) : phImage(p.icon)}
         <div class="absolute inset-0 bg-gradient-to-t from-[#050807] via-transparent to-transparent"></div>
         <div class="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100 bg-[#35B85A]/10"></div>
         <div class="absolute bottom-0 left-0 right-0 p-6 md:p-8">
@@ -643,7 +657,7 @@
 
   function openModal(p){
     document.getElementById('modalCategory').textContent = p.category;
-    document.getElementById('modalMedia').innerHTML = p.media === 'video' ? phVideo() : phImage();
+    document.getElementById('modalMedia').innerHTML = p.media === 'video' ? phVideo(p.icon) : phImage(p.icon);
     document.getElementById('modalTitle').textContent = p.title;
     document.getElementById('modalDesc').textContent = p.description;
     document.getElementById('modalYear').textContent = p.year;
